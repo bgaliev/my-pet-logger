@@ -1,0 +1,15 @@
+using System;
+using System.Threading.Tasks;
+
+namespace XLog.Core
+{
+    public interface IObjectTracker
+    {
+        Task<ITrackable> TrackAsync<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
+            TAdditionalData additionalData);
+    }
+
+    public interface ITrackable : IDisposable
+    {
+    }
+}

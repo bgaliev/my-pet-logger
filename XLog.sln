@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.Core", "XLog.Core\XLog.Core.csproj", "{A98322FB-A228-4AF4-A1FF-14956D011C89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.ConsoleApp", "XLog.ConsoleApp\XLog.ConsoleApp.csproj", "{706F6772-C183-4F01-9F08-19AA6148B659}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.MongoDb", "XLog.MongoDb\XLog.MongoDb.csproj", "{8F105C4A-DDE1-4DC8-95F1-EA65B5AA485B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.AspNetCore", "XLog.AspNetCore\XLog.AspNetCore.csproj", "{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A98322FB-A228-4AF4-A1FF-14956D011C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98322FB-A228-4AF4-A1FF-14956D011C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98322FB-A228-4AF4-A1FF-14956D011C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98322FB-A228-4AF4-A1FF-14956D011C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{706F6772-C183-4F01-9F08-19AA6148B659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{706F6772-C183-4F01-9F08-19AA6148B659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{706F6772-C183-4F01-9F08-19AA6148B659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{706F6772-C183-4F01-9F08-19AA6148B659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F105C4A-DDE1-4DC8-95F1-EA65B5AA485B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F105C4A-DDE1-4DC8-95F1-EA65B5AA485B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F105C4A-DDE1-4DC8-95F1-EA65B5AA485B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F105C4A-DDE1-4DC8-95F1-EA65B5AA485B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
