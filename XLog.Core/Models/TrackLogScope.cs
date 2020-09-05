@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
 
 namespace XLog.Core.Models
@@ -10,17 +11,17 @@ namespace XLog.Core.Models
 
         private readonly SafeHandle _safeHandle = new SafeFileHandle(IntPtr.Zero, true);
 
-        private readonly TrackLogData<TTrackedObject, TAdditionalData> _trackLogData;
+        private readonly ILogRepository _logRepository;
 
-        private readonly Action<TrackLogData<TTrackedObject, TAdditionalData>> _onDispose;
+        private readonly Log<TrackLogData<TTrackedObject, TAdditionalData>> _log;
 
-        public TrackLogScope(TrackLogData<TTrackedObject, TAdditionalData> trackLogData,
-            Action<TrackLogData<TTrackedObject, TAdditionalData>> onDispose)
+
+        public TrackLogScope(ILogRepository logRepository, Log<TrackLogData<TTrackedObject, TAdditionalData>> log)
         {
-            _trackLogData = trackLogData;
-            _onDispose = onDispose;
+            _logRepository = logRepository;
+            _log = log;
         }
-        
+
         public void Dispose() => Dispose(true);
 
         // Protected implementation of Dispose pattern.
@@ -33,12 +34,27 @@ namespace XLog.Core.Models
 
             if (disposing)
             {
-                _trackLogData.EndDate = DateTime.UtcNow;
-                _onDispose(_trackLogData);
+                SaveChanges();
                 _safeHandle?.Dispose();
             }
 
             _disposed = true;
+        }
+
+        public void SaveChanges()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _log.Data.EndDate = DateTime.UtcNow;
+            _logRepository.Persist(_log);
+        }
+
+        public Task SaveChangesAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

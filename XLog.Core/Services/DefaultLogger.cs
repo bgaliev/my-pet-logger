@@ -1,7 +1,5 @@
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using XLog.Core.Helpers;
 using XLog.Core.Models;
 
@@ -9,17 +7,14 @@ namespace XLog.Core.Services
 {
     public class DefaultLogger : ILogger
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
         private readonly ILogRepository _repository;
 
-        public DefaultLogger(IHttpContextAccessor httpContextAccessor, ILogRepository repository)
+        public DefaultLogger(ILogRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
-        public Task<ITrackable> TrackAsync<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
+        public ITrackable Track<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
             TAdditionalData additionalData)
         {
             var logData = new TrackLogData<TTrackedObject, TAdditionalData>
@@ -31,26 +26,37 @@ namespace XLog.Core.Services
                 EndDate = default
             };
 
-            var logScope = new TrackLogScope<TTrackedObject, TAdditionalData>(logData,
-                data => { LogAsync(type, logData).Wait(); });
-
-            return Task.FromResult<ITrackable>(logScope);
+            var logScope = new TrackLogScope<TTrackedObject, TAdditionalData>(_repository, Create(type, logData));
+            return logScope;
         }
 
-        public async Task LogAsync<TLogData>(string type, TLogData logData)
+        public Task<ITrackable> TrackAsync<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
+            TAdditionalData additionalData)
         {
-            var userIdentifier = _httpContextAccessor?.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            throw new NotImplementedException();
+        }
 
-            var log = new Log<TLogData>
+        public void Log<TLogData>(string type, TLogData logData)
+        {
+            _repository.Persist(Create(type, logData));
+        }
+
+        public Task LogAsync<TLogData>(string type, TLogData logData)
+        {
+            throw new NotImplementedException();
+        }
+
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private Log<TLogData> Create<TLogData>(string type, TLogData logData)
+        {
+            return new Log<TLogData>
             {
+                Id = Guid.NewGuid().ToString(),
                 CreatedAt = DateTime.UtcNow,
                 Data = logData,
-                Id = Guid.NewGuid().ToString(), //
                 Type = type,
-                UserId = userIdentifier
+                UserId = "sample-user-id"
             };
-            
-            await _repository.PersistAsync(log);
         }
     }
 }

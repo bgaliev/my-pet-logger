@@ -45,7 +45,10 @@ namespace XLog.ConsoleApp
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            Parallel.For(0, 100_000, async (index) =>
+            Parallel.For(0, 100_000, new ParallelOptions()
+            {
+                MaxDegreeOfParallelism = 20
+            }, (index) =>
             {
                 var person = new Person
                 {
@@ -57,11 +60,13 @@ namespace XLog.ConsoleApp
                     }
                 };
 
-                var defaultLogger = new DefaultLogger(null, repository);
-                using var tracker = await defaultLogger.TrackAsync("SUPER", person, new { });
+                var defaultLogger = new DefaultLogger(repository);
+                var tracker = defaultLogger.Track("SUPER", person, new { });
 
                 person.Age = 200;
                 person.Pets.Add(new Pet {Name = "Shit", PetType = PetType.Dog});
+
+                tracker.Dispose();
             });
 
             stopwatch.Stop();

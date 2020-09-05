@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.MongoDb", "XLog.MongoD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.AspNetCore", "XLog.AspNetCore\XLog.AspNetCore.csproj", "{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupeSample", "SupeSample\SupeSample.csproj", "{C316A258-9C7A-4BDD-8CF9-C361FB50746B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E2879B-DB37-42B0-A96F-FB388C75B2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C316A258-9C7A-4BDD-8CF9-C361FB50746B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C316A258-9C7A-4BDD-8CF9-C361FB50746B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C316A258-9C7A-4BDD-8CF9-C361FB50746B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C316A258-9C7A-4BDD-8CF9-C361FB50746B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
