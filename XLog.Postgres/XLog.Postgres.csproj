@@ -5,12 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\XLog.Core\XLog.Core.csproj" />
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+      <ProjectReference Include="..\XLog.Core\XLog.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Mvc" />
+      <PackageReference Include="Npgsql" Version="4.1.4" />
     </ItemGroup>
 
 </Project>

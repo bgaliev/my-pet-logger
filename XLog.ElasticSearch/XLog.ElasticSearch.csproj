@@ -5,12 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\XLog.Core\XLog.Core.csproj" />
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+      <ProjectReference Include="..\XLog.Core\XLog.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Mvc" />
+      <PackageReference Include="Elasticsearch.Net" Version="7.9.0" />
     </ItemGroup>
 
 </Project>

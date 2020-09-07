@@ -8,30 +8,8 @@ using XLog.MongoDb;
 
 namespace XLog.ConsoleApp
 {
-    class Program
+    internal class Program
     {
-        class Person
-        {
-            public string Name { get; set; }
-
-            public int Age { get; set; }
-
-            public List<Pet> Pets { get; set; }
-        }
-
-        class Pet
-        {
-            public string Name { get; set; }
-
-            public PetType PetType { get; set; }
-        }
-
-        enum PetType
-        {
-            Cat,
-            Dog
-        }
-
         private static void Main(string[] args)
         {
             var repository = new MongoDbLogRepository(new OptionsWrapper<MongoDbOptions>(
@@ -45,7 +23,7 @@ namespace XLog.ConsoleApp
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            Parallel.For(0, 100_000, async (index) =>
+            Parallel.For(0, 100_000, async index =>
             {
                 var person = new Person
                 {
@@ -68,6 +46,28 @@ namespace XLog.ConsoleApp
 
             stopwatch.Stop();
             Console.WriteLine(stopwatch.Elapsed);
+        }
+
+        private class Person
+        {
+            public string Name { get; set; }
+
+            public int Age { get; set; }
+
+            public List<Pet> Pets { get; set; }
+        }
+
+        private class Pet
+        {
+            public string Name { get; set; }
+
+            public PetType PetType { get; set; }
+        }
+
+        private enum PetType
+        {
+            Cat,
+            Dog
         }
     }
 }

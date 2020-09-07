@@ -4,11 +4,10 @@ namespace XLog.Core.Models
 {
     public class TrackLogScope<TTrackedObject, TAdditionalData> : ITrackable
     {
-        private bool _disposed;
+        private readonly Action<TrackLogData<TTrackedObject, TAdditionalData>> _onDispose;
 
         private readonly TrackLogData<TTrackedObject, TAdditionalData> _trackLogData;
-
-        private readonly Action<TrackLogData<TTrackedObject, TAdditionalData>> _onDispose;
+        private bool _disposed;
 
         public TrackLogScope(TrackLogData<TTrackedObject, TAdditionalData> trackLogData,
             Action<TrackLogData<TTrackedObject, TAdditionalData>> onDispose)
@@ -17,7 +16,10 @@ namespace XLog.Core.Models
             _onDispose = onDispose;
         }
 
-        public void Dispose() => Dispose(true);
+        public void Dispose()
+        {
+            Dispose(true);
+        }
 
         private void SaveChanges()
         {
@@ -28,15 +30,9 @@ namespace XLog.Core.Models
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
-            {
-                return;
-            }
+            if (_disposed) return;
 
-            if (disposing)
-            {
-                SaveChanges();
-            }
+            if (disposing) SaveChanges();
 
             _disposed = true;
         }

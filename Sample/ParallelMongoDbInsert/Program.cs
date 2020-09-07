@@ -5,14 +5,14 @@ using MongoDB.Driver;
 
 namespace ParallelMongoDbInsert
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Parallel.For(0, 100_000, new ParallelOptions
             {
                 MaxDegreeOfParallelism = 20
-            }, (i) =>
+            }, i =>
             {
                 var someObject = new A
                 {
@@ -46,7 +46,7 @@ namespace ParallelMongoDbInsert
             _aHandler = aHandler;
         }
 
-        private A A { get; set; }
+        private A A { get; }
 
         public void Dispose()
         {
@@ -67,7 +67,7 @@ namespace ParallelMongoDbInsert
     }
 
 
-    class A
+    internal class A
     {
         public int Field01 { get; set; }
 

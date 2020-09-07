@@ -15,7 +15,7 @@ namespace XLog.Core.Helpers
         public static bool IsPrimitive(this Type type)
         {
             if (type == typeof(string)) return true;
-            return (type.IsValueType & type.IsPrimitive);
+            return type.IsValueType & type.IsPrimitive;
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -68,7 +68,7 @@ namespace XLog.Core.Helpers
             BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public |
                                         BindingFlags.FlattenHierarchy, Func<FieldInfo, bool> filter = null)
         {
-            foreach (FieldInfo fieldInfo in typeToReflect.GetFields(bindingFlags))
+            foreach (var fieldInfo in typeToReflect.GetFields(bindingFlags))
             {
                 if (filter != null && filter(fieldInfo) == false) continue;
                 if (IsPrimitive(fieldInfo.FieldType)) continue;
@@ -105,23 +105,22 @@ namespace XLog.Core.Helpers
             {
                 if (array.LongLength == 0) return;
                 var walker = new ArrayTraverse(array);
-                do action(array, walker.Position);
-                while (walker.Step());
+                do
+                {
+                    action(array, walker.Position);
+                } while (walker.Step());
             }
         }
 
         internal class ArrayTraverse
         {
-            public readonly int[] Position;
             private readonly int[] _maxLengths;
+            public readonly int[] Position;
 
             public ArrayTraverse(Array array)
             {
                 _maxLengths = new int[array.Rank];
-                for (var i = 0; i < array.Rank; ++i)
-                {
-                    _maxLengths[i] = array.GetLength(i) - 1;
-                }
+                for (var i = 0; i < array.Rank; ++i) _maxLengths[i] = array.GetLength(i) - 1;
 
                 Position = new int[array.Rank];
             }
@@ -132,10 +131,7 @@ namespace XLog.Core.Helpers
                 {
                     if (Position[i] >= _maxLengths[i]) continue;
                     Position[i]++;
-                    for (var j = 0; j < i; j++)
-                    {
-                        Position[j] = 0;
-                    }
+                    for (var j = 0; j < i; j++) Position[j] = 0;
 
                     return true;
                 }

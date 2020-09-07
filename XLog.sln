@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{25F8CE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelMongoDbInsert", "Sample\ParallelMongoDbInsert\ParallelMongoDbInsert.csproj", "{8C7BA908-AE5D-475F-8681-E793E943AC4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.AspNetCoreSample", "Sample\XLog.AspNetCoreSample\XLog.AspNetCoreSample.csproj", "{4530D813-53B5-446B-93E0-7FBF8B6B48FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,8 +40,13 @@ Global
 		{8C7BA908-AE5D-475F-8681-E793E943AC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C7BA908-AE5D-475F-8681-E793E943AC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C7BA908-AE5D-475F-8681-E793E943AC4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4530D813-53B5-446B-93E0-7FBF8B6B48FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4530D813-53B5-446B-93E0-7FBF8B6B48FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4530D813-53B5-446B-93E0-7FBF8B6B48FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4530D813-53B5-446B-93E0-7FBF8B6B48FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8C7BA908-AE5D-475F-8681-E793E943AC4B} = {25F8CE20-4F74-4CC7-B538-A38591183333}
+		{4530D813-53B5-446B-93E0-7FBF8B6B48FB} = {25F8CE20-4F74-4CC7-B538-A38591183333}
 	EndGlobalSection
 EndGlobal
