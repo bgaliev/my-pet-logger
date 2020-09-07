@@ -16,18 +16,23 @@ namespace XLog.MongoDb
             _options = options.Value;
         }
 
-        public async Task PersistAsync<TLogData>(Log<TLogData> log)
+        public Task PersistAsync<TLogData>(Log<TLogData> log)
+        {
+            Persist(log);
+            return Task.CompletedTask;
+        }
+
+        public void Persist<TLogData>(Log<TLogData> log)
         {
             var bsonDocument = log.ToBsonDocument();
             var mongoClient = new MongoClient(_options.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(_options.Database);
             var mongoCollection = mongoDatabase.GetCollection<BsonDocument>(_options.CollectionName);
-            await mongoCollection.InsertOneAsync(bsonDocument);
+            mongoCollection.InsertOne(bsonDocument);
         }
 
         public void Dispose()
         {
-            
         }
     }
 }

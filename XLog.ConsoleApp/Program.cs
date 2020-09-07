@@ -32,7 +32,7 @@ namespace XLog.ConsoleApp
             Dog
         }
 
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
             var repository = new MongoDbLogRepository(new OptionsWrapper<MongoDbOptions>(
                 new MongoDbOptions
@@ -59,12 +59,11 @@ namespace XLog.ConsoleApp
 
                 var defaultLogger = new DefaultLogger(null, repository);
                 // ReSharper disable once MethodHasAsyncOverload
-                var tracker = defaultLogger.Track("SUPER", person, new { });
+                using var tracker = defaultLogger.Track("SUPER", person, new { });
+                // defaultLogger.Log("shit", person);
 
                 person.Age = 200;
                 person.Pets.Add(new Pet {Name = "Shit", PetType = PetType.Dog});
-
-                tracker.SaveChanges();
             });
 
             stopwatch.Stop();

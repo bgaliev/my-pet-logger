@@ -14,8 +14,5 @@ namespace XLog.Core
 
     public interface ITrackable : IDisposable
     {
-        void SaveChanges();
-
-        Task SaveChangesAsync();
     }
 }

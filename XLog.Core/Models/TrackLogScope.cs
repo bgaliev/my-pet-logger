@@ -1,15 +1,10 @@
 using System;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Microsoft.Win32.SafeHandles;
 
 namespace XLog.Core.Models
 {
     public class TrackLogScope<TTrackedObject, TAdditionalData> : ITrackable
     {
         private bool _disposed;
-
-        private readonly SafeHandle _safeHandle = new SafeFileHandle(IntPtr.Zero, true);
 
         private readonly TrackLogData<TTrackedObject, TAdditionalData> _trackLogData;
 
@@ -24,15 +19,10 @@ namespace XLog.Core.Models
 
         public void Dispose() => Dispose(true);
 
-        public void SaveChanges()
+        private void SaveChanges()
         {
             _trackLogData.EndDate = DateTime.UtcNow;
             _onDispose(_trackLogData);
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
         }
 
         // Protected implementation of Dispose pattern.
@@ -46,7 +36,6 @@ namespace XLog.Core.Models
             if (disposing)
             {
                 SaveChanges();
-                _safeHandle?.Dispose();
             }
 
             _disposed = true;
