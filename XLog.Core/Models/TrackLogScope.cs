@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
 
 namespace XLog.Core.Models
@@ -20,8 +21,19 @@ namespace XLog.Core.Models
             _trackLogData = trackLogData;
             _onDispose = onDispose;
         }
-        
+
         public void Dispose() => Dispose(true);
+
+        public void SaveChanges()
+        {
+            _trackLogData.EndDate = DateTime.UtcNow;
+            _onDispose(_trackLogData);
+        }
+
+        public Task SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
@@ -33,8 +45,7 @@ namespace XLog.Core.Models
 
             if (disposing)
             {
-                _trackLogData.EndDate = DateTime.UtcNow;
-                _onDispose(_trackLogData);
+                SaveChanges();
                 _safeHandle?.Dispose();
             }
 

@@ -58,10 +58,13 @@ namespace XLog.ConsoleApp
                 };
 
                 var defaultLogger = new DefaultLogger(null, repository);
-                using var tracker = await defaultLogger.TrackAsync("SUPER", person, new { });
+                // ReSharper disable once MethodHasAsyncOverload
+                var tracker = defaultLogger.Track("SUPER", person, new { });
 
                 person.Age = 200;
                 person.Pets.Add(new Pet {Name = "Shit", PetType = PetType.Dog});
+
+                tracker.SaveChanges();
             });
 
             stopwatch.Stop();

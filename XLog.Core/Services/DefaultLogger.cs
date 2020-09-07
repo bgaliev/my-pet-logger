@@ -2,6 +2,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Nito.AsyncEx.Synchronous;
 using XLog.Core.Helpers;
 using XLog.Core.Models;
 
@@ -19,7 +20,7 @@ namespace XLog.Core.Services
             _repository = repository;
         }
 
-        public Task<ITrackable> TrackAsync<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
+        public ITrackable Track<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
             TAdditionalData additionalData)
         {
             var logData = new TrackLogData<TTrackedObject, TAdditionalData>
@@ -31,10 +32,19 @@ namespace XLog.Core.Services
                 EndDate = default
             };
 
-            var logScope = new TrackLogScope<TTrackedObject, TAdditionalData>(logData,
-                data => { LogAsync(type, logData).Wait(); });
+            var logScope = new TrackLogScope<TTrackedObject, TAdditionalData>(logData, data => { Log(type, logData); });
+            return logScope;
+        }
 
-            return Task.FromResult<ITrackable>(logScope);
+        public Task<ITrackable> TrackAsync<TTrackedObject, TAdditionalData>(string type, TTrackedObject trackedObject,
+            TAdditionalData additionalData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Log<TLogData>(string type, TLogData logData)
+        {
+            LogAsync(type, logData).WaitAndUnwrapException();
         }
 
         public async Task LogAsync<TLogData>(string type, TLogData logData)
@@ -49,7 +59,7 @@ namespace XLog.Core.Services
                 Type = type,
                 UserId = userIdentifier
             };
-            
+
             await _repository.PersistAsync(log);
         }
     }
